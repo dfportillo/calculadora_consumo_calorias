@@ -1,7 +1,10 @@
-import Form from "./components/Form"
+import Form from "./components/Form";
+import { useReducer } from "react";
+import { activityReducer,initialState } from "./reducers/activity-reducers";
 
 function App() {
   
+  const [state,dispach] = useReducer(activityReducer,initialState);
 
   return (
     <>
