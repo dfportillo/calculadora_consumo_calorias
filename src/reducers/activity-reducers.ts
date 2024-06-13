@@ -13,10 +13,19 @@ export const initialState:ActivityState = {
     activities:[]
 };
 
-export function activityReducer (state:ActivityState=initialState , actions:ActivityActions) {
+export function activityReducer (
+    state:ActivityState=initialState, 
+    actions:ActivityActions) 
+        {
     if(actions.type ==='save-activity'){
         // este codigo ejecuta los cambios del estado 
+        // console.log(actions.payload.newActivity)
 
-        console.log('desde el type save activity')
+        return {
+            ...state,
+            activities: [...state.activities,actions.payload.newActivity]
+        }
     }
+
+    return state; // siempre ser retorna el state
 };
