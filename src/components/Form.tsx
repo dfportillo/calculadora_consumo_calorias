@@ -1,5 +1,6 @@
-import { categories } from "../data/categorys";
 import { useState, Dispatch } from "react";
+import { v4 as uuidv4} from "uuid"
+import { categories } from "../data/categorys";
 import { Activity } from "../types";
 import { ActivityActions } from "../reducers/activity-reducers";
 
@@ -9,11 +10,12 @@ type TypeForms = {
 
 export default function Form({ dispatch }: TypeForms) {
 
-    const initialStateActivity = {
-            category: 1,
-            name: "",
-            calories: 0,
-        }
+    const initialStateActivity:Activity = {
+        id: uuidv4(),
+        category: 1,
+        name: "",
+        calories: 0,
+    }
 
     const [activity, setActivity] = useState<Activity>(initialStateActivity);
 
@@ -34,7 +36,7 @@ export default function Form({ dispatch }: TypeForms) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch({ type: 'save-activity', payload: { newActivity: activity } });
+        dispatch({type:'save-activity',payload:{newActivity:activity}});
 
         setActivity(initialStateActivity);
     }
