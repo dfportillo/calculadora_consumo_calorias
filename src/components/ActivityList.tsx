@@ -8,9 +8,10 @@ type ActivityListProps = {
 
 export default function ActivityList({ activities }: ActivityListProps) {
 
-    const IdentifyActivities = useMemo(() => // se tiene que hacer un doble callback, el primero es utilizado solamente para use memo
+    const identifyActivities = useMemo(() => // se tiene que hacer un doble callback, el primero es utilizado solamente para use memo
         (category:Activity['category']) => 
-            console.log(category) ,[activities])
+            categories.map((cat) => cat.id === category ? cat.name : '') 
+        ,[activities])
 
     console.log(activities);
 
@@ -20,19 +21,20 @@ export default function ActivityList({ activities }: ActivityListProps) {
                 comida y actividades
             </h2>
             {
-                activities.map((activitiy) => 
-                    <div key={activitiy.id} className=" px-5 py-10 flex justify-between bg-white">
-                        <div className=" space-y-2">
-                            <p>
-                                {(activitiy.category)}
+                activities.map((activity) => 
+                    <div key={activity.id} className=" px-5 py-10 flex mt-5 justify-between bg-white">
+                        <div className=" space-y-2 relative">
+                            <p className={` absolute -top-8 -left-8 px-10 py-2 text-white uppercase font-bold ${activity.category === 1?'bg-lime-500':'bg-orange-500'}`}>
+                                {identifyActivities(activity.category)}
                             </p>
-                            <p className=" text-2xl font-bold pt-5">{activitiy.name}</p>
+                            <p className=" text-2xl font-bold pt-5">{activity.name}</p>
                             <p className=" text-4xl font-black text-lime-500">
-                                {activitiy.calories}{''}
+                                {activity.calories}{' '}
                                 <span>calories</span>
                             </p>
                         </div>
                         <div>
+                            
 
                         </div>
 
