@@ -2,6 +2,7 @@ import Form from "./components/Form";
 import {  useEffect, useMemo, useReducer } from "react";
 import { activityReducer,initialState } from "./reducers/activity-reducers";
 import ActivityList from "./components/ActivityList";
+import CalorieTracker from "./components/CalorieTracker";
 
 
 
@@ -20,9 +21,9 @@ function App() {
     <>
 
       <header className=" bg-lime-400 py-3">
-        <div className=" max-w-4xl mx-auto flex justify-between">
+        <div className=" max-w-4xl mx-auto flex justify-between items-center">
           <h1 className=" text-center font-bold text-xl text-white uppercase place-items-center">contador de calorias</h1>
-          <button className=" first-letter:uppercase text-xl font-bold text-white w-40 h-10 bg-gray-700 hover:bg-gray-500 hover:border-4 border-black items-center rounded-lg disabled:opacity-10"
+          <button className=" first-letter:uppercase text-xl font-bold text-white w-40 h-10 bg-gray-700 hover:bg-gray-500 hover:border-4 border-black items-center rounded-lg disabled:opacity-10 cursor-pointer"
           disabled={!restartOk()}
           onClick={() => dispatch({type:'restart-app'})}
           >
@@ -39,6 +40,15 @@ function App() {
           />
 
         </div>
+      </section>
+
+      <section className=" bg-gray-800 py-10">
+        <div className=" max-w-4xl mx-auto">
+          <CalorieTracker 
+            activities={state.activities}
+          />
+        </div>
+
       </section>
 
       <section className=" p-10 max-w-4xl mx-auto">
