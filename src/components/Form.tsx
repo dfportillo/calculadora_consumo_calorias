@@ -1,14 +1,15 @@
-import { useState, Dispatch } from "react";
+import { useEffect, useState,Dispatch} from "react";
 import { v4 as uuidv4} from "uuid"
 import { categories } from "../data/categorys";
-import { Activity } from "../types";
+import { Activity, ActivityState } from "../types";
 import { ActivityActions } from "../reducers/activity-reducers";
 
-type TypeForms = {
+export type TypeForms = {
     dispatch: Dispatch<ActivityActions>;
+    state:ActivityState;
 }
 
-export default function Form({ dispatch }: TypeForms) {
+export default function Form({ dispatch,state}: TypeForms) {
 
     const initialStateActivity:Activity = {
         id: uuidv4(),
@@ -17,7 +18,15 @@ export default function Form({ dispatch }: TypeForms) {
         calories: 0,
     }
 
+    
     const [activity, setActivity] = useState<Activity>(initialStateActivity);
+        
+    useEffect(() => {
+            if(state.activeId){
+                const selectedActivity = state.activities.filter( stateActivity => stateActivity.id === state.activeId)[0]; 
+                setActivity(selectedActivity);
+            }
+        },[state.activeId]);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
 
@@ -70,7 +79,7 @@ export default function Form({ dispatch }: TypeForms) {
                         id="name"
                         type="text"
                         className=" border border-slate-300 p-2 rounded-lg"
-                        placeholder="Ej: Ejercicio, pesas, bicicleta"
+                        placeholder={activity.category === 1 ? 'Ej. Pollo ,queso, pan, carne' : 'Ej. Pesas, natacion, trotar'}
                         value={activity.name}
                         onChange={handleChange}
                     />
