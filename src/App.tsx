@@ -55,6 +55,7 @@ function App() {
         <ActivityList 
           activities = {state.activities}
           dispatch = { dispatch}
+          state ={state}
         />
       </section>
     </>
